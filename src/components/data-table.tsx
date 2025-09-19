@@ -1,14 +1,15 @@
 'use client';
 
-import { AnalysisResult } from '@/types/solar';
+import { AnalysisResult, SimulationParams } from '@/types/solar';
 import { formatTime, formatDegrees, getCompassDirection } from '@/lib/utils';
 import { Card, CardContent } from './ui/card';
 
 interface DataTableProps {
   analysis: AnalysisResult;
+  params: SimulationParams;
 }
 
-export function DataTable({ analysis }: DataTableProps) {
+export function DataTable({ analysis, params }: DataTableProps) {
   const visiblePoints = analysis.pathPoints.filter(point => point.isVisible);
   const avoidancePoints = visiblePoints.filter(point => !point.hitsCase);
   const directSunlightPoints = visiblePoints.filter(point => point.hitsCase);
@@ -139,6 +140,20 @@ export function DataTable({ analysis }: DataTableProps) {
               and when it set, declining away from them to the left..."
             </p>
 
+            <div className="p-3 bg-blue-50 rounded border border-blue-200">
+              <p className="text-blue-800 leading-relaxed">
+                <strong className="text-blue-900">📍 Directional Analysis:</strong> The verse describes specific directional behavior.
+                For the sun to incline "to the right" at sunrise and "to the left" at sunset while avoiding the cave,
+                the cave would likely need to face roughly <strong>north or south</strong>.
+                Current cave orientation: <strong>{params.cave.orientation}°</strong>
+                ({params.cave.orientation === 0 ? 'North' :
+                  params.cave.orientation === 90 ? 'East' :
+                  params.cave.orientation === 180 ? 'South' :
+                  params.cave.orientation === 270 ? 'West' :
+                  `${Math.round(params.cave.orientation)}° from North`})
+              </p>
+            </div>
+
             {analysis.avoidancePeriods.length > 0 ? (
               <div className="p-3 bg-green-50 rounded border border-green-200">
                 <p className="text-green-800 leading-relaxed">
@@ -152,7 +167,8 @@ export function DataTable({ analysis }: DataTableProps) {
               <div className="p-3 bg-yellow-50 rounded border border-yellow-200">
                 <p className="text-yellow-800 leading-relaxed">
                   <strong>⚠ Partial Match:</strong> This configuration shows continuous direct sunlight exposure.
-                  Consider adjusting the cave orientation or location to better match the Quranic description.
+                  Consider adjusting the cave orientation to <strong>0° (North)</strong> or <strong>180° (South)</strong>
+                  to better match the Quranic description.
                 </p>
               </div>
             )}
@@ -160,7 +176,8 @@ export function DataTable({ analysis }: DataTableProps) {
             <div className="p-3 bg-gray-50 rounded border border-gray-200">
               <p className="text-gray-700 leading-relaxed">
                 <strong className="text-black">Note:</strong> This simulation provides a physical analysis based on solar geometry.
-                The actual historical context may involve additional factors not captured in this model.
+                The verse suggests a specific cave orientation where the observer, facing the cave opening,
+                would see the sun moving "to the right" at sunrise and "to the left" at sunset.
               </p>
             </div>
           </div>

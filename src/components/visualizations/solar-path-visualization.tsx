@@ -405,10 +405,17 @@ export function SolarPathVisualization({ analysis, params }: SolarPathVisualizat
           Green points indicate times when sunlight avoids the cave entrance,
           while red points show when sunlight would directly hit the cave.
         </p>
-        <p className="text-gray-600 leading-relaxed">
+        <p className="text-gray-600 leading-relaxed mb-2">
           The purple dashed line shows the cave's orientation, and the purple shaded area
           represents the cave's field of view based on its geometry.
         </p>
+        <div className="p-2 bg-blue-50 rounded border border-blue-200 mt-3">
+          <p className="text-blue-800 text-sm leading-relaxed">
+            <strong>Quranic Context:</strong> The verse describes the sun inclining "to the right" at sunrise and "to the left" at sunset.
+            Try setting the cave orientation to <strong>0° (North)</strong> or <strong>180° (South)</strong>
+            to better match this directional description.
+          </p>
+        </div>
       </div>
     </div>
   );

@@ -90,7 +90,7 @@ export function SolarSimulator({ params, onParamsChange }: SolarSimulatorProps) 
                 </CardDescription>
               </CardHeader>
               <CardContent className="p-6">
-                <DataTable analysis={analysis} />
+                <DataTable analysis={analysis} params={params} />
               </CardContent>
             </Card>
           </TabsContent>
